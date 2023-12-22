@@ -1,6 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/models/user_model.dart';
+import 'package:instagram_clone/provider/user_provider.dart';
+import 'package:instagram_clone/utils/colors.dart';
+import 'package:provider/provider.dart';
 
 class MobileScreen extends StatefulWidget {
   const MobileScreen({super.key});
@@ -10,32 +12,17 @@ class MobileScreen extends StatefulWidget {
 }
 
 class _MobileScreenState extends State<MobileScreen> {
-  String userName="";
-
-  @override
-  void initState() {
-    super.initState();
-    getUserName();
-  }
-
-  void getUserName()async{
-    DocumentSnapshot snapshot=await FirebaseFirestore.instance
-        .collection('user')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
 
 
-    setState(() {
-      userName =(snapshot.data() as Map<String,dynamic>)['username'];
 
-    });
-    print(userName);
-  }
 
   @override
   Widget build(BuildContext context) {
+
+   final UserModel? user=Provider.of<UserProvider>(context).getUser;
+
     return  Scaffold(
-      body: Center(child: Text('$userName')),
+      body: user==null ?const Center(child: CircularProgressIndicator(color: primaryColor,),):Center(child: Text('${user.email??""}')),
     );
   }
 }
