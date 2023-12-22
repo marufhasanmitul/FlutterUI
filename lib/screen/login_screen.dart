@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram_clone/resources/auth_method.dart';
+import 'package:instagram_clone/screen/sign_up_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:instagram_clone/utils/utils.dart';
 
+import '../responsive/mobile_screen.dart';
+import '../responsive/responsive_layout_screen.dart';
+import '../responsive/web_screen.dart';
 import '../widgets/text_field_input.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,6 +19,30 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController=TextEditingController();
   final TextEditingController _passController=TextEditingController();
+
+  bool _isLoading=false;
+
+
+  void logIn()async{
+    _isLoading=true;
+    setState(() {});
+    String res=await AuthMethods().loginUser(email: _emailController.text, password: _passController.text);
+    if(res=="success"){
+      _isLoading=false;
+      setState(() {});
+
+      if(mounted){
+        showMySnackBar(context,"Login Success");
+        Navigator.push(context, MaterialPageRoute(builder: (_)=>
+        const ResponsiveLayoutScreen(mobileScreen: MobileScreen(), webScreen: WebScreen(),)
+        ));
+      }
+
+
+    }else{
+
+    }
+  }
 
  @override
   void dispose() {
@@ -49,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 24,),
               InkWell(
-                onTap: (){},
+                onTap:logIn,
                 child: Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(vertical: 12),
@@ -60,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     color: blueColor
                   ),
-                  child: const Text('Log in'),
+                  child:_isLoading?const Center(child: CircularProgressIndicator(color: primaryColor),) :const Text('Log in'),
                 ),
               ),
               const SizedBox(height: 12,),
@@ -73,7 +103,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: const Text("Don't have an account?"),
                   ),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (_)=>const SignUpScreen()));
+                    },
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: const Text("Sign Up",style: TextStyle(fontWeight: FontWeight.bold),),
