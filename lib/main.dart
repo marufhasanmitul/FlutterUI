@@ -13,11 +13,12 @@ void main() async{
   if(kIsWeb){
     await Firebase.initializeApp(
       options: const FirebaseOptions(
-          apiKey: "AIzaSyCWE-5IgLEW9YN80YtL6fZDog2NwF70vYE",
-          appId: "1:957025831472:web:c69b8dfc104bf7c3457bf5",
-          messagingSenderId: "957025831472",
-          projectId: "instagram-eec68",
-          storageBucket: "instagram-eec68.appspot.com"
+          apiKey: "AIzaSyCgKu6u8f8yRWQrN24zinghulTwUxTQkhE",
+          authDomain: "instagram-9da78.firebaseapp.com",
+          projectId: "instagram-9da78",
+          storageBucket: "instagram-9da78.appspot.com",
+          messagingSenderId: "86893489473",
+          appId: "1:86893489473:web:001ce88914ac47992b45c0"
       )
     );
   }else{
