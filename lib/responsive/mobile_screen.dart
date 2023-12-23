@@ -13,6 +13,16 @@ class MobileScreen extends StatefulWidget {
 
 class _MobileScreenState extends State<MobileScreen> {
 
+  int _currentIndex=0;
+
+  final List tabItem=[
+    const Center(child: Text("Home Page"),),
+    const Center(child: Text("Search Page"),),
+    const Center(child: Text("Add Post"),),
+    const Center(child: Text("Video Page"),),
+    const Center(child: Text("Profile Page"),)
+  ];
+
 
 
 
@@ -22,7 +32,42 @@ class _MobileScreenState extends State<MobileScreen> {
    final UserModel? user=Provider.of<UserProvider>(context).getUser;
 
     return  Scaffold(
-      body: user==null ?const Center(child: CircularProgressIndicator(color: primaryColor,),):Center(child: Text('${user.email??""}')),
+      body: tabItem[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        backgroundColor: mobileBackgroundColor,
+        iconSize: 28,
+        onTap: (index){
+          _currentIndex=index;
+          setState(() {});
+        },
+        items:  [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home,color:_currentIndex==0?primaryColor: primaryColor.withOpacity(0.5),),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.search,color:_currentIndex==1?primaryColor: primaryColor.withOpacity(0.5),),
+              label: "",
+
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.add_box_rounded,color:_currentIndex==2?primaryColor: primaryColor.withOpacity(0.5),),
+              label: "",
+
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.video_collection_outlined,color:_currentIndex==3?primaryColor: primaryColor.withOpacity(0.5),),
+              label: "",
+
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person_2_outlined,color:_currentIndex==4?primaryColor: primaryColor.withOpacity(0.5),),
+              label: "",
+
+          ),
+        ],
+      ),
     );
   }
 }
