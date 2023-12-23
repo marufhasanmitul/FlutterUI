@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/models/user_model.dart';
 import 'package:instagram_clone/provider/user_provider.dart';
+import 'package:instagram_clone/screen/add_post_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,7 @@ class _MobileScreenState extends State<MobileScreen> {
   final List tabItem=[
     const Center(child: Text("Home Page"),),
     const Center(child: Text("Search Page"),),
-    const Center(child: Text("Add Post"),),
+    const AddPostScreen(),
     const Center(child: Text("Video Page"),),
     const Center(child: Text("Profile Page"),)
   ];
@@ -28,14 +29,10 @@ class _MobileScreenState extends State<MobileScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-   final UserModel? user=Provider.of<UserProvider>(context).getUser;
-
     return  Scaffold(
       body: tabItem[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        backgroundColor: mobileBackgroundColor,
         iconSize: 28,
         onTap: (index){
           _currentIndex=index;
