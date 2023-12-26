@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone/models/user_model.dart';
 import 'package:instagram_clone/provider/user_provider.dart';
 import 'package:instagram_clone/screen/add_post_screen.dart';
+import 'package:instagram_clone/screen/feed_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,7 @@ class _MobileScreenState extends State<MobileScreen> {
   int _currentIndex=0;
 
   final List tabItem=[
-    const Center(child: Text("Home Page"),),
+    const FeedScreen(),
     const Center(child: Text("Search Page"),),
     const AddPostScreen(),
     const Center(child: Text("Video Page"),),
